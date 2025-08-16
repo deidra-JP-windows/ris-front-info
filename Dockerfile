@@ -2,5 +2,5 @@
 FROM node:24-bullseye
 WORKDIR /app
 
-RUN npm ci --omit=dev
-RUN npm install -g typescript ts-node
+RUN npm install
+RUN npm install -g typescript
