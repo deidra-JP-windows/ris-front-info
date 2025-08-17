@@ -1,5 +1,11 @@
 # プロジェクト概要
-このリポジトリは、ゲームコミュニティ用ウェブサイトのInfo 用ウェブサイトの構築・運用を目的としています。 運用効率・可読性を重視し、必要以上の工数をかけない方針です。
+このリポジトリは、ゲームコミュニティ用ウェブサイトのInfo用ウェブサイトの構築・運用を目的としています。
+また、ris- で始まる各種リポジトリ（例: ris-front-info, ris-infra-core など）は、インフラ・開発共通の基盤として ris-infra-core リポジトリを中心にREADMEや構成、PRテンプレート、ビルド用シェルスクリプト等を管理しています。
+運用や開発の詳細、共通ルール・テンプレートの最新版は ris-infra-core リポジトリを参照してください。
+
+> **NOTE:**
+> 本リポジトリのREADMEやPRテンプレート、ビルド用sh等は ris-infra-core で一元管理されており、運用ルールやテンプレートの最新情報は ris-infra-core をご確認ください。
+> [ris-infra-core リポジトリはこちら](https://github.com/deidra-JP-windows/ris-infra-core)
 
 ## ディレクトリ・ファイル構成
 TBD
@@ -39,8 +45,7 @@ bash build_command.sh exec
 ```
 ```
 # コンテナ停止時
-bash build_command.sh exec
-# 上記のコマンド、または Remote Explorer → Dev Containers からコンテナを選択し、Attach in New Window からコンテナを起動・接続してください。
+bash build_command.sh stop
 ```
 ```
 # イメージ更新時
@@ -101,8 +106,14 @@ TBD
 フォーマットに細かい指定はないですが、作業内容の概要だけ記載をお願いします。
 例：[構成変更]_README修正
 
-### PR事前作業
-TBD
+### PRテンプレート
+本リポジトリのPRテンプレート（.github/PULL_REQUEST_TEMPLATE.md）は ris-infra-core リポジトリで管理されている共通テンプレートをベースにしています。
+PR作成時は ris-infra-core のテンプレートや運用ルールも参考に、必要事項を記載してください。
+
+#### 注意事項
+- PRのタイトル・説明は分かりやすく記載してください。
+- レビュワーが確認しやすいよう、必要に応じてスクリーンショットや補足説明を追加してください。
+- テンプレートは`.github/PULL_REQUEST_TEMPLATE.md`で管理しています。必要に応じて編集・拡張してください。
 
 ### 実行
 TBD
