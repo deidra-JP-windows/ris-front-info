@@ -7,7 +7,7 @@
 
 .common_logo {
   opacity: 0;
-  filter: drop-shadow(0 0 2em #003444aa);
+  filter: drop-shadow(0 0 2em #31525caa);
 }
 
 .common_logo.visible {
