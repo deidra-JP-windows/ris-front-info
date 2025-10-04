@@ -1,5 +1,5 @@
 import riftenLogo from '../public/riften.png'
-import { Routes, Route, Link, Navigate } from "react-router";
+import { Routes, Route, Link, Navigate, useLocation } from "react-router";
 import Recruit from './recruit/Recruit';
 import MissionVision from './mission-vision/MissionVision';
 import NewsRelease from './news-release/NewsRelease';
@@ -8,7 +8,17 @@ import Home from './home/Home';
 import Root from './root/Root';
 import './App.css'
 
+import { useState, useEffect } from 'react';
+
 function App() {
+  const [logoVisible, setLogoVisible] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    setLogoVisible(false);
+    const timeout = setTimeout(() => setLogoVisible(true), 600);
+    return () => clearTimeout(timeout);
+  }, [location.pathname]);
 
   return (
     <>
@@ -34,7 +44,7 @@ function App() {
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       {/* 共通コンポーネント */}
-      <img src={riftenLogo} className="logo" alt="Riften logo" />
+      <img src={riftenLogo} className={`common_logo${logoVisible ? ' visible' : ''}`} alt="Riften logo" />
       {/* フッター */}
       <div className="common_padding"></div>
       <footer style={{
