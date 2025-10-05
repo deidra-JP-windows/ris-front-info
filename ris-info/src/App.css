@@ -5,6 +5,11 @@
   text-align: center;
 }
 
+a {
+  color: #213547;
+  text-decoration: none;
+}
+
 .common_logo {
   opacity: 0;
   filter: drop-shadow(0 0 2em #31525caa);
@@ -24,14 +29,19 @@
   }
 }
 
-
-
 .common_padding {
   padding: 2em;
 }
 
 .common_animated_title {
   font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  animation: fadeInLeft 1s ease-out;
+}
+
+.common_animated_text {
+  font-size: 0.8rem;
   font-weight: bold;
   margin-bottom: 1rem;
   animation: fadeInLeft 1s ease-out;
