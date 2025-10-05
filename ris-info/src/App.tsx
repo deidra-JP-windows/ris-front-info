@@ -25,22 +25,22 @@ function App() {
       {/* ナビゲーションバー */}
       <nav style={{ background: '#ffffffff', color: '#fff', padding: '10px 0', marginBottom: 24 }}>
         <div style={{ display: 'flex', gap: 24, justifyContent: 'center', alignItems: 'center' }}>
-          <Link to="/home" style={{ color: '#213547', textDecoration: 'none', fontWeight: 'bold' }}>Home</Link>
-          <Link to="/recruit" style={{ color: '#213547', textDecoration: 'none' }}>Recruit</Link>
-          <Link to="/about" style={{ color: '#213547', textDecoration: 'none' }}>Mission & Vision</Link>
-          <Link to="/" style={{ color: '#213547', textDecoration: 'none' }}>-</Link>
-          <Link to="/products-services" style={{ color: '#213547', textDecoration: 'none' }}>Products & Services</Link>
-          <Link to="/contact" style={{ color: '#213547', textDecoration: 'none' }}>News Release</Link>
+          <Link to="/ris-front-info/home" style={{ color: '#213547', textDecoration: 'none', fontWeight: 'bold' }}>Home</Link>
+          <Link to="/ris-front-info/recruit" style={{ color: '#213547', textDecoration: 'none' }}>Recruit</Link>
+          <Link to="/ris-front-info/about" style={{ color: '#213547', textDecoration: 'none' }}>Mission & Vision</Link>
+          <Link to="/ris-front-info/" style={{ color: '#213547', textDecoration: 'none' }}>-</Link>
+          <Link to="/ris-front-info/products-services" style={{ color: '#213547', textDecoration: 'none' }}>Products & Services</Link>
+          <Link to="/ris-front-info/contact" style={{ color: '#213547', textDecoration: 'none' }}>News Release</Link>
         </div>
       </nav>
       {/* ルーター */}
       <Routes>
-        <Route index path="/" element={<Root />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/recruit" element={<Recruit />} />
-        <Route path="/about" element={<MissionVision />} />
-        <Route path="/contact" element={<NewsRelease />} />
-        <Route path="/products-services" element={<ProductsServices />} />
+        <Route index path="/ris-front-info/" element={<Root />} />
+        <Route path="/ris-front-info/home" element={<Home />} />
+        <Route path="/ris-front-info/recruit" element={<Recruit />} />
+        <Route path="/ris-front-info/about" element={<MissionVision />} />
+        <Route path="/ris-front-info/contact" element={<NewsRelease />} />
+        <Route path="/ris-front-info/products-services" element={<ProductsServices />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       {/* 共通コンポーネント */}
