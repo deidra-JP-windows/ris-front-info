@@ -3,12 +3,25 @@
 また、ris- で始まる各種リポジトリ（例: ris-front-info, ris-infra-core など）は、インフラ・開発共通の基盤として ris-infra-core リポジトリを中心にREADMEや構成、PRテンプレート、ビルド用シェルスクリプト等を管理しています。
 運用や開発の詳細、共通ルール・テンプレートの最新版は ris-infra-core リポジトリを参照してください。
 
+## サイト公開URL
+本サイトは GitHub Pages を利用して以下のURLでホスティングされています。
+
+https://deidra-jp-windows.github.io/ris-front-info/home
 > **NOTE:**
 > 本リポジトリのREADMEやPRテンプレート、ビルド用sh等は ris-infra-core で一元管理されており、運用ルールやテンプレートの最新情報は ris-infra-core をご確認ください。
 > [ris-infra-core リポジトリはこちら](https://github.com/deidra-JP-windows/ris-infra-core)
 
 ## ディレクトリ・ファイル構成
-TBD
+
+以下のようなディレクトリ・ファイル構成を参考にしています。
+
+- `/documents/systems` : システム全体の設計・運用に関するドキュメント（構成図、要件定義書、仕様書等）
+- `/riften_web_infra/terraform/00_modules/` : Terraformモジュール群
+- `/riften_web_infra/terraform/{ENV}/` : 環境別（dev, stg, prod）のTerraform構成
+- `/riften_web_infra/tools/` : 開発Tipsや補助ツール、検証用コード
+- `/build_command.sh` : 開発環境コンテナ操作用スクリプト
+- `/Dockerfile` : 開発環境用Dockerイメージ定義
+- `documents/knowhow/` : 開発や運用に関するノウハウ・手順書・設定例などのドキュメントを格納
 
 ## 開発環境セットアップ
 ### 必要な環境・ツール
@@ -99,7 +112,11 @@ gitGraph
 ```
 
 #### GitHub Actions連携ポイント
-TBD
+現状、本リポジトリでは以下の理由からGitHub Actions連携を使用していません。
+- 主な運用は静的サイトのビルド・デプロイのみであり、追加の自動化ジョブが現時点で必要ないため
+- コスト・運用負荷の観点から、必要最小限の自動化のみを採用
+
+今後、要件や運用方針の変更に応じてGitHub Actionsの導入を検討する場合があります。
 
 ### コミットメッセージ
 関数単位や同じ修正内容のまとまり単位でコミットしてください。
@@ -116,18 +133,43 @@ PR作成時は ris-infra-core のテンプレートや運用ルールも参考�
 - テンプレートは`.github/PULL_REQUEST_TEMPLATE.md`で管理しています。必要に応じて編集・拡張してください。
 
 ### 実行
-TBD
+
+#### サイトのビルド・デプロイ方法
+- サイトのビルド・デプロイは、`ris-info` ディレクトリで以下のコマンドを実行してください。
+
+```
+npm run deploy
+```
+
+これにより、GitHub Pages へ静的サイトがデプロイされます。
+
+#### ローカル開発サーバの起動
+- 開発時は、`ris-info` ディレクトリで以下のコマンドを実行してください。
+
+```
+npm run dev
+```
+
+ローカルサーバが起動し、 http://localhost:5173/ などで動作確認ができます。
 
 ### デストロイ
-TBD
+
+#### サイトのデプロイ解除（デストロイ）
+- GitHub Pages の公開設定を無効化することで、サイトの公開を停止できます。
+- または、`gh-pages` ブランチを削除することで公開コンテンツを削除できます。
 
 ## CI/CD（GitHub Actions）
-TBD
+本リポジトリでは、CI/CDの自動化は最小限にとどめています。
+
 ### CI（継続的インテグレーション）
+- 現状、CIによる自動テストやビルドチェック等は実施していません。
+
 ### CD（継続的デリバリー）
+- 静的サイトのデプロイは、主に手動またはnpm script（例: `npm run deploy`）で実施しています。
+- GitHub Actions等による自動デプロイは現時点で導入していません。
 
 #### 補足
-TBD
+- 今後、運用方針や要件の変化に応じてCI/CD自動化の導入を検討する場合があります。
 
 ## GitHub運用方針
 - **Collaborators and teams** で許可したユーザーのみWrite権限を付与し、不要なユーザーのpush権限を制限します。
