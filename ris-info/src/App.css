@@ -1,0 +1,59 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+a {
+  color: #213547;
+  text-decoration: none;
+}
+
+.common_logo {
+  opacity: 0;
+  filter: drop-shadow(0 0 2em #31525caa);
+}
+
+.common_logo.visible {
+  animation: fadeInLogo 0.6s forwards;
+  opacity: 1;
+}
+
+@keyframes fadeInLogo {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.common_padding {
+  padding: 2em;
+}
+
+.common_animated_title {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  animation: fadeInLeft 1s ease-out;
+}
+
+.common_animated_text {
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  animation: fadeInLeft 1s ease-out;
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

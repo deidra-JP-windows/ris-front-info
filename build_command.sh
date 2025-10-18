@@ -10,7 +10,7 @@ fi
 if [ "$1" = "first-up" ]; then
   docker build -t ris-front-info .
   echo "コンテナを起動します..."
-  MSYS_NO_PATHCONV=1 docker run -itd --name ris-front-info -v /c/Users/$USERNAME/.ssh:/root/.ssh ris-front-info
+  MSYS_NO_PATHCONV=1 docker run -itd --name ris-front-info -v /c/Users/$USERNAME/.ssh:/root/.ssh -p 5173:5173 ris-front-info
   MSYS_NO_PATHCONV=1 docker exec -it ris-front-info /bin/bash -c "
     chmod 600 /root/.ssh/config
     chmod 600 /root/.ssh/id_ed25519
@@ -22,7 +22,7 @@ if [ "$1" = "first-up" ]; then
 # up
 elif [ "$1" = "up" ]; then
   echo "コンテナを起動します..."
-  MSYS_NO_PATHCONV=1 docker run -itd --name ris-front-info -v /c/Users/$USERNAME/.ssh:/root/.ssh ris-front-info
+  MSYS_NO_PATHCONV=1 docker run -itd --name ris-front-info -v /c/Users/$USERNAME/.ssh:/root/.ssh -p 5173:5173 ris-front-info
   MSYS_NO_PATHCONV=1 docker exec -it ris-front-info /bin/bash -c "
     cd /ris-front-info && exec /bin/bash
   "
@@ -57,7 +57,7 @@ elif [ "$1" = "rebuild" ]; then
   docker stop ris-front-info
   docker rm ris-front-info
   docker build -t ris-front-info .
-  MSYS_NO_PATHCONV=1 docker run -itd --name ris-front-info -v /c/Users/$USERNAME/.ssh:/root/.ssh ris-front-info
+  MSYS_NO_PATHCONV=1 docker run -itd --name ris-front-info -v /c/Users/$USERNAME/.ssh:/root/.ssh -p 5173:5173 ris-front-info
   MSYS_NO_PATHCONV=1 docker exec -it ris-front-info /bin/bash -c "
     chmod 600 /root/.ssh/config
     chmod 600 /root/.ssh/id_ed25519
