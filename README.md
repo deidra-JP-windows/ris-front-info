@@ -155,7 +155,7 @@ npm run dev
 
 ### デストロイ
 
-#### サイトのデプロイ解除（デストロイ）
+#### サイトのデプロイ解除（dev デストロイ）
 - GitHub Pages の公開設定を無効化することで、dev環境のサイト公開を停止できます。
 - または、`gh-pages` ブランチを削除することで公開コンテンツを削除できます。
 - 本リポジトリでは、`.github/workflows/delete-gh-pages.yml` により、`gh-pages` ブランチが存在する場合は毎時自動で削除されます（手動実行も可能）。
@@ -163,6 +163,11 @@ npm run dev
 
 ## CI/CD（GitHub Actions）
 本リポジトリでは、CI/CDの自動化は最小限にとどめています。
+
+### GitHub Actions 権限設定について
+GitHub Actionsでリモートブランチ（例: gh-pages）を削除する為、
+リポジトリの「Settings > Actions > General > Workflow permissions」で
+GITHUB_TOKEN の権限を「Read and write」に設定しています。
 
 ### CI（継続的インテグレーション）
 - 現状、CIによる自動テストやビルドチェック等は実施していません。
