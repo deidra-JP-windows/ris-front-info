@@ -11,7 +11,8 @@
   - 毎日自動で削除されます。
 
 - **prod（本番）環境**: Amazon S3  
-  ※本番環境URLやバケット情報は ris-infra-core リポジトリ等で管理しています。詳細はそちらをご確認ください。
+  ※本番環境URLやバケット情報は本リポジトリまたは運用担当者が管理します。詳細は管理者にご確認ください。
+  本番環境へのデプロイは、AWS Prod環境のアクセストークン（認証情報）がシークレット手動でにセットされた状態で、GitHub Actionsによりmainブランチへマージされた際に、 `deploy_prod_to_s3.sh` が自動実行されます。
 
 > **NOTE:**
 > 本リポジトリのREADMEやPRテンプレート、ビルド用sh等は ris-infra-core で一元管理されており、運用ルールやテンプレートの最新情報は ris-infra-core をご確認ください。
@@ -133,6 +134,7 @@ PR作成時は ris-infra-core のテンプレートや運用ルールも参考�
 ### サイトのビルド・デプロイ方法
 - サイトのビルド・デプロイは、`ris-info` ディレクトリで以下のコマンドを実行してください。
 
+
 #### dev環境（GitHub Pages公開）
 ```
 npm run deploy
@@ -140,8 +142,8 @@ npm run deploy
 これにより、GitHub Pages へ静的サイトがデプロイされます。
 
 #### prod環境（S3公開）
-- 本番環境へのデプロイは ris-infra-core の手順・スクリプトに従ってください。
-- S3バケットやCloudFrontへのデプロイ方法は ris-infra-core のドキュメントを参照してください。
+
+本番環境へのデプロイは、AWS Prod環境のアクセストークン（認証情報）がGitHubリポジトリのシークレットに手動でセットされた状態で、mainブランチへマージされた際にGitHub Actionsにより `deploy_prod_to_s3.sh` が自動実行されます。
 
 ### ローカル開発サーバの起動
 - 開発時は、`ris-info` ディレクトリで以下のコマンドを実行してください。
@@ -167,8 +169,7 @@ npm run dev
 
 ### CD（継続的デリバリー）
 - dev環境（GitHub Pages）へのデプロイは主に手動またはnpm script（例: `npm run deploy`）で実施しています。
-- prod環境（S3）へのデプロイは ris-infra-core の手順に従い、手動または別途自動化スクリプトで実施します。
-- GitHub Actions等による自動デプロイは現時点で導入していません。
+- prod環境（S3）へのデプロイは、AWS Prod環境の認証情報（アクセストークン）がGitHubリポジトリのシークレットにセットされた状態で、mainブランチへマージされた際にGitHub Actionsにより `deploy_prod_to_s3.sh` が自動実行されます。
 
 #### 補足
 - 今後、運用方針や要件の変化に応じてCI/CD自動化の導入を検討する場合があります。
