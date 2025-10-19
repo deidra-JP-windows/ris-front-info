@@ -4,16 +4,21 @@
 運用や開発の詳細、共通ルール・テンプレートの最新版は ris-infra-core リポジトリを参照してください。
 
 ## サイト公開URL
-本サイトは GitHub Pages を利用して以下のURLでホスティングされています。
+本サイトは **dev 環境では GitHub Pages、prod 環境では Amazon S3** を利用してホスティングされています。
 
-https://deidra-jp-windows.github.io/ris-front-info/home
+- **dev（開発）環境**: GitHub Pages  
+  https://deidra-jp-windows.github.io/ris-front-info/home
+  - 毎日自動で削除されます。
+
+- **prod（本番）環境**: Amazon S3  
+  ※本番環境URLやバケット情報は本リポジトリまたは運用担当者が管理します。詳細は管理者にご確認ください。
+  本番環境へのデプロイは、AWS Prod環境のアクセストークン（認証情報）がシークレット手動でにセットされた状態で、GitHub Actionsによりmainブランチへマージされた際に、 `deploy_prod_to_s3.sh` が自動実行されます。
+
 > **NOTE:**
 > 本リポジトリのREADMEやPRテンプレート、ビルド用sh等は ris-infra-core で一元管理されており、運用ルールやテンプレートの最新情報は ris-infra-core をご確認ください。
 > [ris-infra-core リポジトリはこちら](https://github.com/deidra-JP-windows/ris-infra-core)
 
 ## ディレクトリ・ファイル構成
-
-以下のようなディレクトリ・ファイル構成を参考にしています。
 
 - `/documents/systems` : システム全体の設計・運用に関するドキュメント（構成図、要件定義書、仕様書等）
 - `/riften_web_infra/terraform/00_modules/` : Terraformモジュール群
@@ -34,46 +39,40 @@ https://deidra-jp-windows.github.io/ris-front-info/home
 - Markdown Preview Mermaid Support : Mermaid記法プレビュー
 
 ### 外部の拡張機能
-効率的な開発を行う為、個人開発の拡張機能で以下の2つを採用しています。
 - Draw.io Integration
-  - VS Code で Draw.io を操作することが可能
 - Markdown Preview Mermaid Support
-  - マーメイド記法で書かれたコードをプレビューすることが可能
 
 ### 開発環境
-以下のコマンドを`Git Bash`環境で実行してください。
+以下のコマンドを`Git Bash`環境で実行してください。  
 コンテナ起動後、リポジトリを `Dev Containers` で開いてください。
+
 ```
 # 初回起動時
 bash build_command.sh first-up
-```
-```
+
 # 起動時
 bash build_command.sh up
-```
-```
+
 # 接続時
 bash build_command.sh exec
-# 上記のコマンド、または Remote Explorer → Dev Containers からコンテナを選択し、Attach in New Window からコンテナを起動・接続してください。
-```
-```
+# または Remote Explorer → Dev Containers からコンテナを選択し、Attach in New Window で接続
+
 # コンテナ停止時
 bash build_command.sh stop
-```
-```
+
 # イメージ更新時
 bash build_command.sh rebuild
-```
-```
+
 # コンテナ削除
 bash build_command.sh down
 ```
 
-### プッシュ
-※リリースなどは原則行わない想定ですが、汎用的なフローとして順守してください。
-github に差分をプッシュする際には git-flow を簡略化し運用してください。Github Actions などの実装を簡略化するためタグは使用しません。
-- git-flow
-  - https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow
+## プッシュ
+※リリースなどは原則行わない想定ですが、汎用的なフローとして順守してください。  
+github に差分をプッシュする際には git-flow を簡略化し運用してください。タグは使用しません。
+
+- git-flow  
+  https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow
 
 | ブランチ名      | 用途・説明                                      | 直接プッシュ禁止 | マージ先          | ブランチ作成元     |
 |:---------------|:-----------------------------------------------|:----------------|:-------------------|:-------------------|
@@ -83,11 +82,9 @@ github に差分をプッシュする際には git-flow を簡略化し運用し
 | develop        | dev 環境へリリースするブランチ                     | ○               | main              | -  |
 | feature/*      | 作業ブランチ（ローカル・dev 環境での動作確認も実施） | ×               | develop           | develop            |
 
-
 ### ブランチ運用フロー
-※リリースなどは原則行わない想定ですが、汎用的なフローとして順守してください。
-Mermaid 記法のため必要に応じて VS Code に拡張機能をインストールしてください。
-例：Markdown Preview Mermaid
+Mermaid記法例（VS Code拡張「Markdown Preview Mermaid Support」推奨）:
+
 ```mermaid
 gitGraph
    commit id: "初期コミット"
@@ -118,45 +115,51 @@ gitGraph
 
 今後、要件や運用方針の変更に応じてGitHub Actionsの導入を検討する場合があります。
 
-### コミットメッセージ
-関数単位や同じ修正内容のまとまり単位でコミットしてください。
-フォーマットに細かい指定はないですが、作業内容の概要だけ記載をお願いします。
+## コミットメッセージ
+関数単位や同じ修正内容のまとまり単位でコミットしてください。  
+フォーマットに細かい指定はありませんが、作業内容の概要だけ記載をお願いします。  
 例：[構成変更]_README修正
 
-### PRテンプレート
-本リポジトリのPRテンプレート（.github/PULL_REQUEST_TEMPLATE.md）は ris-infra-core リポジトリで管理されている共通テンプレートをベースにしています。
+## PRテンプレート
+本リポジトリのPRテンプレート（.github/PULL_REQUEST_TEMPLATE.md）は ris-infra-core リポジトリで管理されている共通テンプレートをベースにしています。  
 PR作成時は ris-infra-core のテンプレートや運用ルールも参考に、必要事項を記載してください。
 
-#### 注意事項
+### 注意事項
 - PRのタイトル・説明は分かりやすく記載してください。
 - レビュワーが確認しやすいよう、必要に応じてスクリーンショットや補足説明を追加してください。
 - テンプレートは`.github/PULL_REQUEST_TEMPLATE.md`で管理しています。必要に応じて編集・拡張してください。
 
-### 実行
+## 実行
 
-#### サイトのビルド・デプロイ方法
+### サイトのビルド・デプロイ方法
 - サイトのビルド・デプロイは、`ris-info` ディレクトリで以下のコマンドを実行してください。
 
+
+#### dev環境（GitHub Pages公開）
 ```
 npm run deploy
 ```
-
 これにより、GitHub Pages へ静的サイトがデプロイされます。
 
-#### ローカル開発サーバの起動
+#### prod環境（S3公開）
+
+本番環境へのデプロイは、AWS Prod環境のアクセストークン（認証情報）がGitHubリポジトリのシークレットに手動でセットされた状態で、mainブランチへマージされた際にGitHub Actionsにより `deploy_prod_to_s3.sh` が自動実行されます。
+
+### ローカル開発サーバの起動
 - 開発時は、`ris-info` ディレクトリで以下のコマンドを実行してください。
 
 ```
 npm run dev
 ```
-
 ローカルサーバが起動し、 http://localhost:5173/ などで動作確認ができます。
 
 ### デストロイ
 
 #### サイトのデプロイ解除（デストロイ）
-- GitHub Pages の公開設定を無効化することで、サイトの公開を停止できます。
+- GitHub Pages の公開設定を無効化することで、dev環境のサイト公開を停止できます。
 - または、`gh-pages` ブランチを削除することで公開コンテンツを削除できます。
+- 本リポジトリでは、`.github/workflows/delete-gh-pages.yml` により、`gh-pages` ブランチが存在する場合は毎時自動で削除されます（手動実行も可能）。
+- prod環境（S3）の公開解除方法は ris-infra-core のドキュメントを参照してください。
 
 ## CI/CD（GitHub Actions）
 本リポジトリでは、CI/CDの自動化は最小限にとどめています。
@@ -165,8 +168,8 @@ npm run dev
 - 現状、CIによる自動テストやビルドチェック等は実施していません。
 
 ### CD（継続的デリバリー）
-- 静的サイトのデプロイは、主に手動またはnpm script（例: `npm run deploy`）で実施しています。
-- GitHub Actions等による自動デプロイは現時点で導入していません。
+- dev環境（GitHub Pages）へのデプロイは主に手動またはnpm script（例: `npm run deploy`）で実施しています。
+- prod環境（S3）へのデプロイは、AWS Prod環境の認証情報（アクセストークン）がGitHubリポジトリのシークレットにセットされた状態で、mainブランチへマージされた際にGitHub Actionsにより `deploy_prod_to_s3.sh` が自動実行されます。
 
 #### 補足
 - 今後、運用方針や要件の変化に応じてCI/CD自動化の導入を検討する場合があります。
@@ -184,16 +187,16 @@ npm run dev
 これらの設定により、リポジトリの安全性・品質を担保します。
 
 ## FAQ（よくある質問）
-Q. Windows以外でも開発できますか？
+Q. Windows以外でも開発できますか？  
 A. 開発環境コンテナ操作用スクリプトが Windows 用のパス指定になっている為、 Mac/Linux 環境は未対応です。
 
-Q. Dev Containersが起動しない場合は？
+Q. Dev Containersが起動しない場合は？  
 A. Docker Desktopの再起動やVS Codeの再起動をお試しください。
 
-Q. SSH鍵の作成方法は？
+Q. SSH鍵の作成方法は？  
 A. `ssh-keygen -t ed25519` で作成できます。
 
-Q. コマンドが失敗する場合は？
+Q. コマンドが失敗する場合は？  
 A. コンテナの状態（起動/停止）を確認し、必要に応じて`build_command.sh`を実行してください。
 
 ## サポート・問い合わせ

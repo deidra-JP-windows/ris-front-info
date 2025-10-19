@@ -1,0 +1,18 @@
+name: Delete gh-pages branch (Daily JST 0:00 & Manual)
+
+on:
+  schedule:
+    - cron: '0 15 * * *' # JST 0時（UTC 15時）
+  workflow_dispatch:
+
+jobs:
+  delete-gh-pages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete gh-pages branch
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl -X DELETE \
+            -H "Authorization: token $GH_TOKEN" \
+            https://api.github.com/repos/${{ github.repository }}/git/refs/heads/gh-pages
