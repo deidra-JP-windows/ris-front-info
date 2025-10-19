@@ -109,11 +109,13 @@ gitGraph
 ```
 
 #### GitHub Actions連携ポイント
-現状、本リポジトリでは以下の理由からGitHub Actions連携を使用していません。
-- 主な運用は静的サイトのビルド・デプロイのみであり、追加の自動化ジョブが現時点で必要ないため
-- コスト・運用負荷の観点から、必要最小限の自動化のみを採用
+- dev 環境デプロイ用ブランチの自動削除
+- main マージの自動デプロイ
 
-今後、要件や運用方針の変更に応じてGitHub Actionsの導入を検討する場合があります。
+#### GitHub Actions 権限設定について
+GitHub Actionsでリモートブランチ（例: gh-pages）を削除する為、
+リポジトリの「Settings > Actions > General > Workflow permissions」で
+GITHUB_TOKEN の権限を「Read and write」に設定しています。
 
 ## コミットメッセージ
 関数単位や同じ修正内容のまとまり単位でコミットしてください。  
