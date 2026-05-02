@@ -3,6 +3,10 @@
 ris- で始まる各種リポジトリ（例: ris-front-info, ris-infra-core など）は、インフラ・開発共通の基盤として ris-infra-core リポジトリを中心にREADMEや構成、PRテンプレート、ビルド用シェルスクリプト等を管理しています。\
 運用や開発の詳細、共通ルール・テンプレートの最新版は ris-infra-core リポジトリを参照してください。
 
+> **NOTE:**
+> 本リポジトリのPRテンプレート、ビルド用sh等は ris-infra-core で一元管理されており、運用ルールやテンプレートの最新情報は ris-infra-core をご確認ください。
+> [ris-infra-core リポジトリはこちら](https://github.com/deidra-JP-windows/ris-infra-core)
+
 ## サイト公開URL
 本サイトは **dev 環境では GitHub Pages、prod 環境では Amazon S3** を利用してホスティングされています。
 
