@@ -178,6 +178,16 @@ npm run dev
 
 ## GitHub運用方針
 - **Collaborators and teams** で許可したユーザーのみWrite権限を付与し、不要なユーザーのpush権限を制限します。
+  - 原則管理者以外、全て外部コントリビューターとして意図しない変更・ワークフローの実行などを制限します。
+  - 以下の状態になります。
+    - 管理者のみが直接pushできる
+    - 外部からの変更は全てPull Request経由となる
+    - Pull Requestのマージ権限も管理者のみが持つ
+- **GitHub Actions の設定**（Approval for running fork pull request workflows）で **Require approval for all external contributors** を有効化し、外部コントリビューター起点のWorkflow実行はメンテナー承認必須とすることで、意図しないWorkflow実行を防止します。
+- **Secret Protection** を有効化し、リポジトリ全体でシークレット漏洩リスクを継続的に監視します。
+  - 既知パターンのシークレット（トークン・鍵など）を検出し、意図しない公開を早期に把握します。
+- **Push protection** を有効化し、シークレットを含むコミットのpushを事前にブロックします。
+  - 開発者がリモートへpushする前段階で警告・ブロックされるため、漏洩にプッシュ前に気づける運用とします。
 - **rulesetの導入**により、以下のブランチ保護・セキュリティ強化を実施します。
   - mainブランチへの直接push禁止（必ずPull Request経由）
   - Pull Request必須・レビュー必須（例: 1名以上の承認）
@@ -186,7 +196,8 @@ npm run dev
   - 必須ステータスチェック（CI等の成功を必須化）
     - 必要に応じて追加
     - Terraform コマンドは基本手打ちで実行する想定（Github Actions の実行に料金が発生する、PR作成前に確認してほしい等）
-これらの設定により、リポジトリの安全性・品質を担保します。
+  - シークレットスキャン（漏洩防止）
+    - CI により実装
 
 ## FAQ（よくある質問）
 Q. Windows以外でも開発できますか？  
